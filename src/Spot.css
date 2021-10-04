@@ -1,0 +1,44 @@
+.spot-top {
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+  border-top: 2px solid white;
+  min-width: 100px;
+  min-height: 150px;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.spot-bottom {
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  min-width: 100px;
+  min-height: 150px;
+  cursor: pointer;
+}
+
+.spot-right {
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+  min-width: 150px;
+  min-height: 100px;
+  cursor: pointer;
+}
+
+.spot-left {
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+  min-height: 100px;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.spot-center {
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+  min-height: 100px;
+  min-width: 150px;
+  cursor: pointer;
+}

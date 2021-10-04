@@ -1,0 +1,49 @@
+.garage {
+  padding: 1rem;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.garage-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+}
+
+.park-dona {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.description {
+  padding: 1rem;
+  text-align: center;
+}
+
+.clickable {
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.no-dona {
+  padding: 1rem;
+  text-align: center;
+}
