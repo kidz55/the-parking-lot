@@ -10,6 +10,7 @@ import Garage from './Garage';
 import moment from 'moment';
 import SpotContent from './SpotContent';
 import { updateDoc } from 'firebase/firestore';
+import ParkingLogo from './assets/parkingLogo.js';
 
 const subarray = (arr, begin, end) => {
   const sub = [...arr];
@@ -45,20 +46,34 @@ function App() {
       method: 'eth_requestAccounts',
     });
     setAccount(accounts[0]);
-    const amount = await getAmountOfDona(accounts[0]);
-    const nftIndexes = await getNFTIndexes(accounts[0], amount);
-    await fetchDonas(nftIndexes);
+    web3.eth.defaultAccount = accounts[0];
   };
 
-  const fetchDonas = async (indexes) => {
-    const queries = indexes.map((index) => api.getDona(index));
+  const fetchDonas = async () => {
+    if (!account) {
+      console.log('not connected');
+      return;
+    }
+    const amount = await getAmountOfDona(account);
+    const nftIndexes = await getNFTIndexes(account, amount);
+    const queries = nftIndexes.map((index) => api.getDona(index));
     try {
       const res = await Promise.all(queries);
-      setDonas(res.filter((el) => el !== null));
+      const donasObj = res
+        .filter((el) => el !== null)
+        .reduce((acc, dona) => {
+          acc[dona?.id] = dona;
+          return acc;
+        }, {});
+      setDonas(donasObj);
+      console.log('donas fetched');
     } catch (e) {
       console.error(e);
     }
   };
+  useEffect(() => {
+    fetchDonas();
+  }, [account]);
 
   const getAmountOfDona = async (addr) => {
     let NFTAmount = await contract.methods.balanceOf(addr).call();
@@ -104,28 +119,39 @@ function App() {
       ...spot,
       lastPark: moment().format(),
       isFree: false,
-      donaIndex: dona.name,
+      donaIndex: dona.id,
+      donaName: dona.name,
+      external_url: dona.external_url,
       image: dona.image,
     });
     await api.updateDona({
       ...dona,
       parkingSpot: spot.index,
     });
+    const updated = { ...donas };
+    updated[dona.id] = { ...dona, parkingSpot: spot.index };
+    setDonas(updated);
     await fetchData();
     setIsModalOpen(false);
   };
   const leaveSpot = async (spot) => {
-    const [currentDona] = donas.filter((dona) => dona.name === spot.donaIndex);
+    const [currentDona] = Object.values(donas).filter(
+      (dona) => dona.name === spot.donaName
+    );
     if (currentDona) {
-      console.log(currentDona);
       await api.updateDona({
         ...currentDona,
         parkingSpot: null,
       });
+      const updated = { ...donas };
+      updated[currentDona.id] = { ...currentDona, parkingSpot: null };
+      setDonas(updated);
       await api.updateParkingSpot({
         ...spot,
         isFree: true,
         donaIndex: null,
+        donaName: null,
+        external_url: null,
         image: null,
       });
       await fetchData();
@@ -133,12 +159,14 @@ function App() {
     }
   };
 
-  const openSpotModal = (spot) => {
+  const openSpotModal = async (spot) => {
     if (spot.isFree) {
+      await fetchDonas();
       setModalContent(
         <Garage
           donas={donas}
           spot={spot}
+          isConnected={!!account}
           onChoose={parkDona}
           onClose={() => setIsModalOpen(false)}
         />
@@ -147,6 +175,7 @@ function App() {
       setModalContent(
         <SpotContent
           spot={spot}
+          donas={donas}
           onClose={() => setIsModalOpen(false)}
           onLeave={leaveSpot}
         />
@@ -154,18 +183,28 @@ function App() {
     }
     setIsModalOpen(true);
   };
-
+  const availableSpots = parking.filter((spot) => spot.isFree).length;
   return (
     <div className="App">
       <div className="header">
         <div className="title">
-          <h1>THE PARKING LOT</h1>
+          <ParkingLogo />
+          <div className="description">
+            <h1>The official parking of the metaverse</h1>
+            <div className="available-spot">
+              <span>
+                AVAILABLE SPOTS: {`${availableSpots}/${parking.length}`}
+              </span>
+            </div>
+          </div>
+          {account ? (
+            <div className="addr">
+              {`Connected with ${account.substring(0, 6)}`}
+            </div>
+          ) : (
+            <Button className="btn" text="CONNECT WALLET" onPress={connect} />
+          )}
         </div>
-        {account ? (
-          <div className="addr"> {account} </div>
-        ) : (
-          <Button className="btn" text="CONNECT WALLET" onPress={connect} />
-        )}
       </div>
 
       <CustomModal modalIsOpen={isModalOpen} content={modalContent} />
@@ -173,7 +212,7 @@ function App() {
         <div className="parking-top">
           {parkingLotTop.map((spot) => (
             <Spot
-              className="spot-top"
+              className="vip-spot"
               key={spot.index}
               spot={spot}
               onSpotClick={openSpotModal}

@@ -65,7 +65,6 @@ const Api = {
     query.forEach((doc) => {
       parkingData.push({ ...doc.data(), id: doc.id });
     });
-    console.log(parkingData);
     return parkingData.sort((a, b) => a.index - b.index);
   },
 };

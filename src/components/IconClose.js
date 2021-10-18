@@ -1,8 +1,10 @@
+import '../App.css';
 import propTypes from 'prop-types';
 
 const IconClose = ({ size, color, style }) => (
   <svg
     style={style}
+    className="pointer"
     width={size}
     height={size}
     preserveAspectRatio="xMinYMid"
@@ -19,8 +21,10 @@ const IconClose = ({ size, color, style }) => (
 
 IconClose.defaultProps = {
   size: 24,
-  color: 'black',
-  style: {},
+  color: 'white',
+  style: {
+    cursor: 'pointer',
+  },
 };
 
 IconClose.propTypes = {

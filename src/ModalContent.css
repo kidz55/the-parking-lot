@@ -3,7 +3,6 @@
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .garage-header {
@@ -15,13 +14,26 @@
 
 .footer {
   display: flex;
-  justify-content: space-around;
   padding: 1rem;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .park-dona {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.content-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -43,7 +55,52 @@
   padding: 1rem;
 }
 
+.disabled {
+  padding: 1rem;
+}
+
+.parked {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 40px;
+  color: #4cf718;
+  display: flex;
+  transform: rotate(45deg);
+}
+
 .no-dona {
+  margin-top: 4rem;
   padding: 1rem;
   text-align: center;
+}
+
+a {
+  box-shadow: 3px 4px 0px 0px #8a2a21;
+  background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+  background-color: #c62d1f;
+  border-radius: 18px;
+  border: 1px solid #d02718;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: 800;
+  padding: 7px 25px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #810e05;
+}
+
+a:hover {
+  background: linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+  background-color: #f24437;
+}
+a:active {
+  position: relative;
+  top: 1px;
 }

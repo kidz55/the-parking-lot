@@ -3,14 +3,43 @@
 }
 
 .header {
+  padding: 2rem;
+  text-align: center;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;
+  font-weight: 500;
+  font-size: 500;
+  background-color: #1505a1;
+  border: 2px solid #b2b3b3;
+}
+
+.available-spot {
+  display: flex;
+  width: fit-content;
+  padding: 1rem;
+  background-color: #2b2a29;
+  border: 1px solid #b2b3b3;
+  color: #4cf718;
+}
+
+.title {
   display: flex;
   justify-content: space-between;
-  padding: 2rem;
+  align-items: center;
 }
 
 .addr {
-  max-width: 50px;
-  text-overflow: ellipsis;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: flex-end;
+  background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+  background-color: #c62d1f;
 }
 
 .parking {
@@ -21,7 +50,13 @@
 
 .parking-top {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
+}
+
+.vip-dona {
+  width: 149px;
+  height: 149px;
 }
 
 .dona {
@@ -36,15 +71,12 @@
   justify-content: space-between;
 }
 
-.parking-left {
-}
-
-.parking-middle {
-}
-
-.parking-right {
-}
-
 .parking-bottom {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pointer {
+  cursor: pointer;
 }

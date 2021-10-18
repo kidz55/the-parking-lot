@@ -13,10 +13,13 @@ html {
   height: 100%;
   width: 100%;
   font-size: $rem-size;
-  font-weight: 400 !default;
+  font-weight: 800 !default;
   letter-spacing: -0.5px;
   color: rgb(27, 28, 58);
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0.5);
+  background-image: url('./assets/background.jpeg');
+  background-repeat: repeat;
+  background-color: grey;
 }
 
 body {
@@ -27,7 +30,7 @@ body {
   font-family: 'Public Sans', sans-serif !default;
   color: rgb(27, 28, 58);
   font-size: 16px !default;
-  font-weight: 400 !default;
+  font-weight: 700 !default;
   line-height: 1.5;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -36,9 +39,6 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   text-size-adjust: 100%;
-  background-image: url('./assets/background.jpeg');
-  background-repeat: repeat;
-  background-attachment: fixed;
 }
 
 article,
@@ -87,7 +87,6 @@ img {
 }
 
 small {
-  font-size: $size-small;
   font-weight: 400 !default;
 }
 

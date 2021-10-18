@@ -10,22 +10,29 @@ const getImage = (dona) => {
   return `https://gateway.pinata.cloud/ipfs/${hash}`;
 };
 
-const Garage = ({ onChoose, donas, onClose, spot }) => {
+const Garage = ({ onChoose, donas, onClose, spot, isConnected }) => {
+  const allParked = Object.values(donas).every((dona) => dona.spotIndex);
   return (
     <div className="garage">
       <div className="garage-header" onClick={onClose}>
         <h2>THE GARAGE</h2>
         <IconClose />
       </div>
-      {donas.length > 0 ? (
-        <div>
+      {!isConnected && (
+        <div className="no-dona">
+          <p>Please first login before park your dona ser</p>
+        </div>
+      )}
+      {Object.values(donas).length > 0 && isConnected && (
+        <div className="content-wrapper">
           <div className="content">
-            {donas.map((dona) => (
+            {Object.values(donas).map((dona) => (
               <div
                 key={dona.name}
-                className="clickable"
+                className={dona.parkingSpot ? 'disabled' : 'clickable'}
                 onClick={() => onChoose(dona, spot)}
               >
+                {dona.parkingSpot && <div className="parked">PARKED</div>}
                 <img
                   src={getImage(dona)}
                   width="150px"
@@ -35,13 +42,18 @@ const Garage = ({ onChoose, donas, onClose, spot }) => {
               </div>
             ))}
           </div>
-          <div className="description">Choose the Sedona you want to park</div>
+          <h2 className="dona-desc">
+            {allParked
+              ? 'all your sedonas are parked ser, you probably should get more of those'
+              : 'Choose the Sedona you want to park'}
+          </h2>
         </div>
-      ) : (
+      )}
+      {isConnected && Object.values(donas).length === 0 && (
         <div className="no-dona">
-          <p>you don't have a Sedona ? no worries, talk to Jay</p>
+          <h2>you don't have a Sedona ? no worries, talk to Jay</h2>
           <a href="https://jaypegsautomart.com/" target="blank">
-            Get in the car
+            GET IN THE CAR
           </a>
         </div>
       )}
