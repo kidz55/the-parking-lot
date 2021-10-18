@@ -188,7 +188,7 @@ function App() {
     <div className="App">
       <div className="header">
         <div className="title">
-          <ParkingLogo />
+          <ParkingLogo className="logo" />
           <div className="description">
             <h1>The official parking of the metaverse</h1>
             <div className="available-spot">

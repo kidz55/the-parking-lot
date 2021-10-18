@@ -16,6 +16,11 @@
   font-size: 500;
   background-color: #1505a1;
   border: 2px solid #b2b3b3;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  margin-bottom: 1rem;
 }
 
 .available-spot {
@@ -30,6 +35,7 @@
 .title {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
 }
 
